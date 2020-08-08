@@ -67,3 +67,7 @@ textarea {
     color: black;
     border-radius: 10px;
 }
+
+#roll-lead {
+    font-size: 20px;
+}
