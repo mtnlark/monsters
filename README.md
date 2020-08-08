@@ -9,3 +9,4 @@ A simple online sheet for players to keep track of info in a session of Monsterh
 - Experience
 - Virtual dice roller
 - Moves
+- Notes
