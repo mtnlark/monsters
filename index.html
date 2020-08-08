@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Monsterhearts Player Sheet</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Monsterhearts Player Sheet</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Roll Dice</h2>
+                <form>
+                    <input value="2d6" id="dice-formula">
+                    <button class="btn btn-dark" id="dice-roller">Roll</button>
+                    <br><br>
+                    <span>Your roll: </span>
+                    <output>
+                        <span class="placeholder"></span>
+                    </output>
+                </form>
+            </div>
+            <div class="col">
+                <h2>Stats</h2>
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Hot">Hot</label>
+                            <input type="number" class="stats form-control" id="Hot" placeholder="0">
+                        </div>
+                        <div class="col">
+                            <label for="Cold">Cold</label>
+                            <input type="number" class="stats form-control" id="Cold" placeholder="0">
+                        </div>
+                        <div class="col">
+                            <label for="Volatile">Volatile</label>
+                            <input type="number" class="stats form-control" id="Volatile" placeholder="0">
+                        </div>
+                        <div class="col">
+                            <label for="Dark">Dark</label>
+                            <input type="number" class="stats form-control" id="Dark" placeholder="0">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <h2>Harm: </h2>
+                    <div class="custom-control custom-checkbox">
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="harm-one">
+                        </div>
+                        <div class="form-check form-check-inline">
+
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="harm-two">
+                        </div>
+                        <div class="form-check form-check-inline">
+
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="harm-three">
+                        </div>
+                        <div class="form-check form-check-inline">
+
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="harm-four">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <h2>Experience:</h2>
+                    <div class="custom-control custom-checkbox">
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="xp-one">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="xp-two">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="xp-three">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="xp-four">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-control form-control-lg form-check-input position-static"
+                                name="xp-five">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Conditions:</h2>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Strings on Me:</h2>
+                <textarea class="form-control" rows="5"></textarea>
+            </div>
+            <div class="col">
+                <h2>Strings on Others:</h2>
+                <textarea class="form-control" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Moves</h2>
+                <textarea class="form-control" rows="7"></textarea>
+            </div>
+        </div>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
