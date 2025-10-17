@@ -3,21 +3,7 @@ import { DiceRoller } from './components/common/DiceRoller';
 import { StatTracker } from './components/common/StatTracker';
 import { HarmExperienceTracker } from './components/common/HarmExperienceTracker';
 import { TextTracker } from './components/common/TextTracker';
-
-/**
- * Represents the character's core statistics
- * @interface Stats
- * @property {number} hot - The character's Hot stat
- * @property {number} cold - The character's Cold stat
- * @property {number} dark - The character's Dark stat
- * @property {number} volatile - The character's Volatile stat
- */
-interface Stats {
-  hot: number;
-  cold: number;
-  dark: number;
-  volatile: number;
-}
+import { Stats } from './types/stats';
 
 /**
  * Represents the complete character data
