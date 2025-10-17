@@ -100,9 +100,27 @@
   }
 }
 
+@keyframes slideInBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+  }
+  50% {
+    transform: translateY(5px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Animation Applications */
 .dice-result {
   animation: fadeIn 0.3s ease-out;
+}
+
+.final-roll-result {
+  animation: slideInBounce 0.5s ease-out;
 }
 
 .stat-box:hover {

@@ -65,13 +65,23 @@ export function StatTracker({ onStatChange, initialStats }: StatTrackerProps) {
         onStatChange(newStats);
     };
 
+    /**
+     * Gets the color class for a stat value
+     * @param {number} value - Stat value
+     * @returns {string} Tailwind color class
+     */
+    const getStatColor = (value: number): string => {
+        if (value < 0) return 'text-red-400';
+        if (value > 0) return 'text-green-400';
+        return 'text-white';
+    };
+
     return (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-lg mx-auto">
             {Object.entries(stats).map(([stat, value]) => (
                 <div key={stat} className="flex flex-col items-center p-2 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition-colors stat-box">
                     <label
                         className="text-sm font-medium font-fontin text-gray-300 capitalize mb-1"
-                        style={{ fontFamily: '"Fontin-Regular", serif' }}
                     >
                         {stat}
                     </label>
@@ -80,7 +90,7 @@ export function StatTracker({ onStatChange, initialStats }: StatTrackerProps) {
                             type="number"
                             value={value}
                             onChange={(e) => updateStat(stat as keyof Stats, parseInt(e.target.value) || 0)}
-                            className="w-full px-1 py-1.5 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blood-red bg-gray-800 text-white text-xl text-center font-bold"
+                            className={`w-full px-1 py-1.5 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blood-red bg-gray-800 ${getStatColor(value)} text-xl text-center font-bold transition-colors`}
                             min="-3"
                             max="3"
                         />

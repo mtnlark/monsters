@@ -99,7 +99,6 @@ export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceR
                     onClick={roll}
                     disabled={disabled}
                     className="btn btn-primary font-fontin disabled:opacity-50 disabled:cursor-not-allowed px-8 py-3 text-lg transition-all hover:shadow-lg transform hover:-translate-y-1 active:translate-y-0"
-                    style={{ fontFamily: '"Fontin-Regular", serif' }}
                 >
                     Roll 2d6
                 </button>
@@ -116,8 +115,7 @@ export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceR
             {lastRoll && (
                 <>
                     <div
-                        className="text-xl bg-gray-700 px-6 py-3 rounded-lg shadow-inner dice-result"
-                        style={{ fontFamily: '"Fontin-Regular", serif' }}
+                        className="text-xl bg-gray-700 px-6 py-3 rounded-lg shadow-inner dice-result font-fontin"
                     >
                         <div className="flex items-center justify-center gap-4">
                             <div className="flex items-center">
@@ -135,7 +133,6 @@ export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceR
                                 key={statName}
                                 onClick={() => applyStat(statName as keyof Stats)}
                                 className="btn btn-secondary font-fontin py-2 px-5 transition-all hover:shadow-md"
-                                style={{ fontFamily: '"Fontin-Regular", serif' }}
                                 disabled={disabled}
                             >
                                 With <span className="font-bold capitalize">{statName}</span>

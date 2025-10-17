@@ -73,7 +73,6 @@ export function HarmExperienceTracker({
             <div className="flex flex-col items-center p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/40 transition-colors">
                 <label
                     className="text-xl font-medium font-fontin text-gray-300 mb-2"
-                    style={{ fontFamily: '"Fontin-Regular", serif' }}
                 >
                     Harm
                 </label>
@@ -103,7 +102,6 @@ export function HarmExperienceTracker({
             <div className="flex flex-col items-center p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/40 transition-colors">
                 <label
                     className="text-xl font-medium font-fontin text-gray-300 mb-2"
-                    style={{ fontFamily: '"Fontin-Regular", serif' }}
                 >
                     Experience
                 </label>

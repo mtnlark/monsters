@@ -59,7 +59,6 @@ export function TextTracker({ label, initialText = '', onTextChange }: TextTrack
         <div className="flex flex-col">
             <h3
                 className="text-xl font-semibold font-fontin mb-3 text-center tracking-wide"
-                style={{ fontFamily: '"Fontin-Regular", serif' }}
             >
                 {label}
             </h3>
@@ -67,11 +66,8 @@ export function TextTracker({ label, initialText = '', onTextChange }: TextTrack
                 <textarea
                     value={text}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700/30 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red resize-none"
-                    style={{
-                        fontFamily: '"Fontin-Regular", serif',
-                        height: `${TEXT_AREA_HEIGHT}px`
-                    }}
+                    className="w-full px-3 py-2 bg-gray-700/30 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red resize-none font-fontin"
+                    style={{ height: `${TEXT_AREA_HEIGHT}px` }}
                     placeholder={`Enter ${label.toLowerCase()}...`}
                 />
                 <button

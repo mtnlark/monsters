@@ -143,10 +143,7 @@ function App() {
       <header className="bg-gradient-to-r from-blood-red to-red-900 text-white p-6 text-center shadow-md">
         <h1
           className="text-3xl font-yataghan tracking-wide"
-          style={{
-            fontFamily: '"Yataghan-Regular", serif',
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
-          }}
+          style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
         >
           Monsterhearts 2 Player Sheet
         </h1>
@@ -156,7 +153,6 @@ function App() {
           <div className="mb-8">
             <h2
               className="text-2xl font-semibold font-fontin mb-4 text-center tracking-wide"
-              style={{ fontFamily: '"Fontin-Regular", serif' }}
             >
               Character
             </h2>
@@ -167,8 +163,8 @@ function App() {
                   value={characterName}
                   onChange={(e) => setCharacterName(e.target.value)}
                   placeholder="Enter character name..."
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red text-lg text-center"
-                  style={{ fontFamily: '"Fontin-Regular", serif' }}
+                  maxLength={50}
+                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red text-lg text-center font-fontin"
                 />
               </div>
             </div>
@@ -181,7 +177,6 @@ function App() {
               <div className="mb-8">
                 <h2
                   className="text-2xl font-semibold font-fontin mb-6 text-center tracking-wide"
-                  style={{ fontFamily: '"Fontin-Regular", serif' }}
                 >
                   Dice Roller
                 </h2>
@@ -189,15 +184,16 @@ function App() {
               </div>
 
               {finalRoll && (
-                <div className="mb-8 text-center">
-                  <div className="inline-block px-6 py-3 bg-gray-700 rounded-lg shadow-inner">
+                <div className="mb-8 text-center final-roll-result">
+                  <div className="inline-block px-8 py-6 bg-gradient-to-br from-blood-red/20 to-red-900/20 border-2 border-blood-red rounded-xl shadow-2xl">
                     <p
-                      className="text-xl font-fontin text-white"
-                      style={{ fontFamily: '"Fontin-Regular", serif' }}
+                      className="text-2xl font-fontin text-gray-200 mb-2"
                     >
-                      Result with <span className="text-white font-bold bg-blood-red px-2 py-0.5 rounded">{finalRoll.statName}</span>:
-                      <span className="ml-2 text-2xl">{finalRoll.total}</span>
+                      Result with <span className="text-white font-bold bg-blood-red px-3 py-1 rounded-md shadow-md">{finalRoll.statName.toUpperCase()}</span>
                     </p>
+                    <div className="text-6xl font-bold text-white drop-shadow-lg">
+                      {finalRoll.total}
+                    </div>
                   </div>
                 </div>
               )}
@@ -205,7 +201,6 @@ function App() {
               <div>
                 <h2
                   className="text-2xl font-semibold font-fontin mb-6 text-center tracking-wide"
-                  style={{ fontFamily: '"Fontin-Regular", serif' }}
                 >
                   Stats
                 </h2>
@@ -217,7 +212,6 @@ function App() {
             <div>
               <h2
                 className="text-2xl font-semibold font-fontin mb-6 text-center tracking-wide"
-                style={{ fontFamily: '"Fontin-Regular", serif' }}
               >
                 Status
               </h2>
@@ -246,7 +240,7 @@ function App() {
         </div>
       </main>
       <footer className="text-center p-4 text-sm text-gray-500 dark:text-gray-400 mt-8">
-        <p style={{ fontFamily: '"Fontin-Regular", serif' }}>
+        <p className="font-fontin">
           A character sheet for Monsterhearts 2
         </p>
         <button

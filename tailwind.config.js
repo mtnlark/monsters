@@ -23,6 +23,11 @@ export default {
                 'blood-red': '#8B0000', // Deep red for blood theme
                 'charcoal': '#36454F',  // Dark gray for UI elements
             },
+            // Custom fonts with fallbacks
+            fontFamily: {
+                'yataghan': ['"Yataghan-Regular"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+                'fontin': ['"Fontin-Regular"', 'Georgia', 'Garamond', '"Times New Roman"', 'Times', 'serif'],
+            },
         },
     },
 
