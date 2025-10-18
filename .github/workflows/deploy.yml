@@ -32,4 +32,5 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           npm run build
+          echo 'monsters.levcraig.com' > dist/CNAME
           npx gh-pages -d dist -u "github-actions[bot] <github-actions[bot]@users.noreply.github.com>" -r https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
