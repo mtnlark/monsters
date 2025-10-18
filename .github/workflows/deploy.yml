@@ -26,7 +26,10 @@ jobs:
         run: npm ci
 
       - name: Build and Deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          npm run deploy
+          npm run build
+          npx gh-pages -d dist -u "github-actions[bot] <github-actions[bot]@users.noreply.github.com>" -r https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
