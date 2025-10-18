@@ -1,38 +1,23 @@
-/**
- * Tailwind CSS Configuration
- * 
- * This file configures:
- * - Content paths for Tailwind to scan
- * - Custom theme extensions
- * - Custom colors and fonts
- * - Required plugins
- */
 /** @type {import('tailwindcss').Config} */
 export default {
-    // Files to scan for Tailwind classes
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
-
-    // Theme customization
+    darkMode: 'class',
     theme: {
         extend: {
-            // Custom colors
             colors: {
-                'blood-red': '#8B0000', // Deep red for blood theme
-                'charcoal': '#36454F',  // Dark gray for UI elements
+                'blood-red': '#8B0000',
+                'charcoal': '#36454F',
             },
-            // Custom fonts with fallbacks
             fontFamily: {
                 'yataghan': ['"Yataghan-Regular"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
                 'fontin': ['"Fontin-Regular"', 'Georgia', 'Garamond', '"Times New Roman"', 'Times', 'serif'],
             },
         },
     },
-
-    // Required plugins
     plugins: [
-        require('@tailwindcss/forms'), // Adds better form element styling
+        require('@tailwindcss/forms'),
     ],
 }; 

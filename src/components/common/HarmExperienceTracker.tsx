@@ -58,9 +58,9 @@ export function HarmExperienceTracker({
     return (
         <div className="flex flex-row justify-center gap-12 flex-wrap">
             {/* Harm Tracker */}
-            <div className="flex flex-col items-center p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/40 transition-colors">
+            <div className="flex flex-col items-center p-4 bg-gray-200 dark:bg-gray-700/30 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700/40 transition-colors">
                 <label
-                    className="text-xl font-medium font-fontin text-gray-300 mb-2"
+                    className="text-xl font-medium font-fontin text-gray-700 dark:text-gray-300 mb-2"
                 >
                     Harm
                 </label>
@@ -70,7 +70,7 @@ export function HarmExperienceTracker({
                             key={index}
                             className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${index < harm
                                 ? 'bg-blood-red text-white'
-                                : 'bg-gray-800 text-gray-500 hover:bg-gray-700'
+                                : 'bg-gray-300 dark:bg-gray-800 text-gray-600 dark:text-gray-500 hover:bg-gray-400 dark:hover:bg-gray-700'
                                 }`}
                             onClick={() => handleHarmClick(index + 1)}
                         >
@@ -79,7 +79,7 @@ export function HarmExperienceTracker({
                     ))}
                 </div>
                 <button
-                    className="mt-2 text-sm text-gray-400 hover:text-white transition-colors"
+                    className="mt-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                     onClick={() => updateHarm(0)}
                 >
                     Clear
@@ -87,9 +87,9 @@ export function HarmExperienceTracker({
             </div>
 
             {/* Experience Tracker */}
-            <div className="flex flex-col items-center p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/40 transition-colors">
+            <div className="flex flex-col items-center p-4 bg-gray-200 dark:bg-gray-700/30 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700/40 transition-colors">
                 <label
-                    className="text-xl font-medium font-fontin text-gray-300 mb-2"
+                    className="text-xl font-medium font-fontin text-gray-700 dark:text-gray-300 mb-2"
                 >
                     Experience
                 </label>
@@ -99,7 +99,7 @@ export function HarmExperienceTracker({
                             key={index}
                             className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${index < experience
                                 ? 'bg-green-700 text-white'
-                                : 'bg-gray-800 text-gray-500 hover:bg-gray-700'
+                                : 'bg-gray-300 dark:bg-gray-800 text-gray-600 dark:text-gray-500 hover:bg-gray-400 dark:hover:bg-gray-700'
                                 }`}
                             onClick={() => handleExperienceClick(index + 1)}
                         >
@@ -108,7 +108,7 @@ export function HarmExperienceTracker({
                     ))}
                 </div>
                 <button
-                    className="mt-2 text-sm text-gray-400 hover:text-white transition-colors"
+                    className="mt-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                     onClick={() => updateExperience(0)}
                 >
                     Clear

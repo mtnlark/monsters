@@ -49,6 +49,10 @@ function App() {
   const [experience, setExperience] = useState<number>(initialCharacter.experience);
   const [strings, setStrings] = useState<string>(initialCharacter.strings);
   const [conditions, setConditions] = useState<string>(initialCharacter.conditions);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved !== null ? saved === 'true' : true;
+  });
 
   useEffect(() => {
     const characterData: CharacterData = {
@@ -61,6 +65,15 @@ function App() {
     };
     localStorage.setItem('monsterhearts-character', JSON.stringify(characterData));
   }, [characterName, stats, harm, experience, strings, conditions]);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('darkMode', String(isDarkMode));
+  }, [isDarkMode]);
 
   const handleRoll = (result: { dice: [number, number]; total: number; stat: number; statName: string }) => {
     console.log('Roll result:', result);
@@ -84,14 +97,31 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:text-gray-100">
-      <header className="bg-gradient-to-r from-blood-red to-red-900 text-white p-6 text-center shadow-md">
-        <h1
-          className="text-3xl font-yataghan tracking-wide"
-          style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
-        >
-          Monsterhearts 2 Player Sheet
-        </h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-100">
+      <header className="bg-gradient-to-r from-blood-red to-red-900 text-white p-6 shadow-md">
+        <div className="container mx-auto max-w-6xl flex items-center justify-between">
+          <h1
+            className="text-3xl font-yataghan tracking-wide"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
+          >
+            Monsterhearts 2 Player Sheet
+          </h1>
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+            aria-label="Toggle dark mode"
+          >
+            {isDarkMode ? (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+              </svg>
+            )}
+          </button>
+        </div>
       </header>
       <main className="container mx-auto p-6 max-w-6xl">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border border-gray-200 dark:border-gray-700">
@@ -109,11 +139,11 @@ function App() {
                   onChange={(e) => setCharacterName(e.target.value)}
                   placeholder="Enter character name..."
                   maxLength={50}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red text-lg text-center font-fontin"
+                  className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red text-lg text-center font-fontin"
                 />
                 <button
                   onClick={() => setCharacterName('')}
-                  className="mt-2 px-4 py-1 bg-gray-800 text-gray-300 rounded hover:bg-gray-700 transition-colors text-sm float-right"
+                  className="mt-2 px-4 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors text-sm float-right"
                 >
                   Clear
                 </button>
@@ -138,11 +168,11 @@ function App() {
                 <div className="mb-8 text-center final-roll-result">
                   <div className="inline-block px-8 py-6 bg-gradient-to-br from-blood-red/20 to-red-900/20 border-2 border-blood-red rounded-xl shadow-2xl">
                     <p
-                      className="text-2xl font-fontin text-gray-200 mb-2"
+                      className="text-2xl font-fontin text-gray-700 dark:text-gray-200 mb-2"
                     >
                       Result with <span className="text-white font-bold bg-blood-red px-3 py-1 rounded-md shadow-md">{finalRoll.statName.toUpperCase()}</span>
                     </p>
-                    <div className="text-6xl font-bold text-white drop-shadow-lg">
+                    <div className="text-6xl font-bold text-gray-900 dark:text-white drop-shadow-lg">
                       {finalRoll.total}
                     </div>
                   </div>
@@ -190,13 +220,13 @@ function App() {
           </div>
         </div>
       </main>
-      <footer className="text-center p-4 text-sm text-gray-500 dark:text-gray-400 mt-8">
+      <footer className="text-center p-4 text-sm text-gray-600 dark:text-gray-400 mt-8">
         <p className="font-fontin">
           A character sheet for Monsterhearts 2
         </p>
         <button
           onClick={resetCharacter}
-          className="mt-2 text-xs text-gray-500 hover:text-blood-red transition-colors"
+          className="mt-2 text-xs text-gray-600 dark:text-gray-500 hover:text-blood-red transition-colors"
         >
           Reset Character
         </button>

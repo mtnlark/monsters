@@ -39,13 +39,13 @@ export function TextTracker({ label, initialText = '', onTextChange }: TextTrack
                 <textarea
                     value={text}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700/30 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red resize-none font-fontin"
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-700/30 border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red resize-none font-fontin"
                     style={{ height: `${TEXT_AREA_HEIGHT}px` }}
                     placeholder={`Enter ${label.toLowerCase()}...`}
                 />
                 <button
                     onClick={handleClear}
-                    className="mt-2 px-4 py-1 bg-gray-800 text-gray-300 rounded hover:bg-gray-700 transition-colors text-sm float-right"
+                    className="mt-2 px-4 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors text-sm float-right"
                 >
                     Clear
                 </button>
