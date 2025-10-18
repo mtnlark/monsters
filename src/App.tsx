@@ -5,16 +5,6 @@ import { HarmExperienceTracker } from './components/common/HarmExperienceTracker
 import { TextTracker } from './components/common/TextTracker';
 import { Stats } from './types/stats';
 
-/**
- * Represents the complete character data
- * @interface CharacterData
- * @property {string} name - The character's name
- * @property {Stats} stats - The character's Hot, Cold, Dark, and Volatile stats
- * @property {number} harm - The character's current harm level
- * @property {number} experience - The character's current experience points
- * @property {string} strings - The character's strings
- * @property {string} conditions - The character's current conditions
- */
 interface CharacterData {
   name: string;
   stats: Stats;
@@ -24,9 +14,6 @@ interface CharacterData {
   conditions: string;
 }
 
-/**
- * Default character data used when no saved data exists
- */
 const DEFAULT_CHARACTER: CharacterData = {
   name: '',
   stats: {
@@ -41,10 +28,6 @@ const DEFAULT_CHARACTER: CharacterData = {
   conditions: ''
 };
 
-/**
- * Loads character data from localStorage
- * @returns {CharacterData} The loaded character data or default values
- */
 const loadCharacter = (): CharacterData => {
   const savedData = localStorage.getItem('monsterhearts-character');
   if (savedData) {
@@ -57,15 +40,6 @@ const loadCharacter = (): CharacterData => {
   return DEFAULT_CHARACTER;
 };
 
-/**
- * Main application component for the Monsterhearts 2 character sheet
- * Features:
- * - Character name and stats management
- * - Dice rolling system
- * - Harm and experience tracking
- * - Strings and conditions tracking
- * - Automatic data persistence
- */
 function App() {
   const initialCharacter = loadCharacter();
   const [stats, setStats] = useState<Stats>(initialCharacter.stats);
@@ -76,7 +50,6 @@ function App() {
   const [strings, setStrings] = useState<string>(initialCharacter.strings);
   const [conditions, setConditions] = useState<string>(initialCharacter.conditions);
 
-  // Save character data when it changes
   useEffect(() => {
     const characterData: CharacterData = {
       name: characterName,
@@ -89,29 +62,15 @@ function App() {
     localStorage.setItem('monsterhearts-character', JSON.stringify(characterData));
   }, [characterName, stats, harm, experience, strings, conditions]);
 
-  /**
-   * Handles dice roll results
-   * @param {Object} result - Roll result
-   * @param {[number, number]} result.dice - Individual dice values
-   * @param {number} result.total - Total roll value
-   * @param {number} result.stat - Stat value used
-   * @param {string} result.statName - Name of stat used
-   */
   const handleRoll = (result: { dice: [number, number]; total: number; stat: number; statName: string }) => {
     console.log('Roll result:', result);
     setFinalRoll({ total: result.total, statName: result.statName });
   };
 
-  /**
-   * Clears current roll result
-   */
   const clearRoll = () => {
     setFinalRoll(null);
   };
 
-  /**
-   * Resets all character data to default values
-   */
   const resetCharacter = () => {
     if (window.confirm('Are you sure you want to reset your character data?')) {
       setCharacterName(DEFAULT_CHARACTER.name);
@@ -143,7 +102,7 @@ function App() {
               Character
             </h2>
             <div className="flex justify-center">
-              <div className="relative w-full max-w-md">
+              <div className="w-full max-w-md">
                 <input
                   type="text"
                   value={characterName}
@@ -152,6 +111,12 @@ function App() {
                   maxLength={50}
                   className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red text-lg text-center font-fontin"
                 />
+                <button
+                  onClick={() => setCharacterName('')}
+                  className="mt-2 px-4 py-1 bg-gray-800 text-gray-300 rounded hover:bg-gray-700 transition-colors text-sm float-right"
+                >
+                  Clear
+                </button>
               </div>
             </div>
           </div>

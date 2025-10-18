@@ -1,55 +1,28 @@
 import { useState, useEffect } from 'react';
 
-/**
- * Props for TextTracker component
- * @interface TextTrackerProps
- * @property {string} label - Label to display above text area
- * @property {string} [initialText=''] - Initial text value
- * @property {(text: string) => void} onTextChange - Callback when text changes
- */
 interface TextTrackerProps {
     label: string;
     initialText?: string;
     onTextChange: (text: string) => void;
 }
 
-/**
- * Default text area height in pixels
- */
 const TEXT_AREA_HEIGHT = 120;
 
-/**
- * A reusable component for tracking and editing text content
- * Features:
- * - Text area with custom styling
- * - Clear button functionality
- * - Automatic state management
- * - Fontin font family integration
- * - Placeholder text based on label
- */
 export function TextTracker({ label, initialText = '', onTextChange }: TextTrackerProps) {
     const [text, setText] = useState(initialText);
 
-    // Update internal state when initialText prop changes
     useEffect(() => {
         if (initialText !== undefined) {
             setText(initialText);
         }
     }, [initialText]);
 
-    /**
-     * Handles text changes in textarea
-     * @param {React.ChangeEvent<HTMLTextAreaElement>} e - The change event
-     */
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newText = e.target.value;
         setText(newText);
         onTextChange(newText);
     };
 
-    /**
-     * Clears text content
-     */
     const handleClear = () => {
         setText('');
         onTextChange('');

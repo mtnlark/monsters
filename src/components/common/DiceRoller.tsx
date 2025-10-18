@@ -1,14 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Stats } from '../../types/stats';
 
-/**
- * Props for DiceRoller component
- * @interface DiceRollerProps
- * @property {Stats} stats - Character's current stats
- * @property {(result: RollResult) => void} onRoll - Callback when a roll is made
- * @property {() => void} [onNewRoll] - Optional callback when a new roll is started
- * @property {boolean} [disabled] - Whether roller is disabled
- */
 interface DiceRollerProps {
     stats: Stats;
     onRoll: (result: RollResult) => void;
@@ -16,14 +8,6 @@ interface DiceRollerProps {
     disabled?: boolean;
 }
 
-/**
- * Represents result of a dice roll
- * @interface RollResult
- * @property {[number, number]} dice - Individual dice values
- * @property {number} total - Total roll value including chosen stat
- * @property {number} stat - Stat value used
- * @property {string} statName - Name of stat used
- */
 interface RollResult {
     dice: [number, number];
     total: number;
@@ -31,20 +15,9 @@ interface RollResult {
     statName: string;
 }
 
-/**
- * A component for rolling 2d6 and applying character stats
- * Features:
- * - Visual dice rolling
- * - Stat application
- * - Roll history
- * - Disabled state support
- */
 export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceRollerProps) {
     const [lastRoll, setLastRoll] = useState<[number, number] | null>(null);
 
-    /**
-     * Rolls two six-sided dice
-     */
     const roll = useCallback(() => {
         if (onNewRoll) {
             onNewRoll();
@@ -57,10 +30,6 @@ export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceR
         setLastRoll(dice);
     }, [onNewRoll]);
 
-    /**
-     * Applies a chosen stat to current roll
-     * @param {keyof Stats} statName - Name of stat to apply
-     */
     const applyStat = useCallback((statName: keyof Stats) => {
         if (!lastRoll) return;
         const stat = stats[statName];
@@ -68,9 +37,6 @@ export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceR
         onRoll({ dice: lastRoll, total, stat, statName });
     }, [lastRoll, stats, onRoll]);
 
-    /**
-     * Clears current roll
-     */
     const clearRoll = useCallback(() => {
         setLastRoll(null);
         if (onNewRoll) {
@@ -131,24 +97,14 @@ export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceR
     );
 }
 
-/**
- * Props for DieVisual component
- * @interface DieVisualProps
- * @property {number} value - Value to display on die
- */
 interface DieVisualProps {
     value: number;
 }
 
-/**
- * A visual representation of a six-sided die
- * @param {DieVisualProps} props - Component props
- */
 function DieVisual({ value }: DieVisualProps) {
     return (
         <div className="w-12 h-12 bg-red-900 rounded-lg shadow-inner flex items-center justify-center relative border-2 border-red-950">
             <span className="text-white text-2xl font-bold">{value}</span>
-            {/* maybe add dice pips/dots visualization later? */}
             <div className="absolute inset-0 bg-white/5 rounded-md"></div>
         </div>
     );

@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react'
 
-/**
- * Props for HarmExperienceTracker component
- * @interface HarmExperienceProps
- * @property {number} [initialHarm=0] - Initial harm value (0-4)
- * @property {number} [initialExperience=0] - Initial experience value (0-5)
- * @property {(harm: number) => void} onHarmChange - Callback when harm changes
- * @property {(experience: number) => void} onExperienceChange - Callback when experience changes
- */
 interface HarmExperienceProps {
     initialHarm?: number;
     initialExperience?: number;
@@ -15,20 +7,9 @@ interface HarmExperienceProps {
     onExperienceChange: (experience: number) => void;
 }
 
-/**
- * Constants for harm and experience tracking
- */
 const HARM_MAX = 4;
 const EXPERIENCE_MAX = 5;
 
-/**
- * A component for tracking character harm and experience
- * Features:
- * - Visual harm tracking (0-4)
- * - Visual experience tracking (0-5)
- * - Clear buttons for both trackers
- * - Automatic value clamping
- */
 export function HarmExperienceTracker({
     initialHarm = 0,
     initialExperience = 0,
@@ -38,7 +19,6 @@ export function HarmExperienceTracker({
     const [harm, setHarm] = useState<number>(initialHarm);
     const [experience, setExperience] = useState<number>(initialExperience);
 
-    // Update local state when props change
     useEffect(() => {
         setHarm(initialHarm);
     }, [initialHarm]);
@@ -47,24 +27,32 @@ export function HarmExperienceTracker({
         setExperience(initialExperience);
     }, [initialExperience]);
 
-    /**
-     * Updates harm value with proper clamping
-     * @param {number} newHarm - New harm value
-     */
     const updateHarm = (newHarm: number) => {
         const clampedHarm = Math.min(Math.max(newHarm, 0), HARM_MAX);
         setHarm(clampedHarm);
         onHarmChange(clampedHarm);
     };
 
-    /**
-     * Updates experience value with proper clamping
-     * @param {number} newExperience - New experience value
-     */
+    const handleHarmClick = (level: number) => {
+        if (level === harm) {
+            updateHarm(harm - 1);
+        } else {
+            updateHarm(level);
+        }
+    };
+
     const updateExperience = (newExperience: number) => {
         const clampedExperience = Math.min(Math.max(newExperience, 0), EXPERIENCE_MAX);
         setExperience(clampedExperience);
         onExperienceChange(clampedExperience);
+    };
+
+    const handleExperienceClick = (level: number) => {
+        if (level === experience) {
+            updateExperience(experience - 1);
+        } else {
+            updateExperience(level);
+        }
     };
 
     return (
@@ -84,7 +72,7 @@ export function HarmExperienceTracker({
                                 ? 'bg-blood-red text-white'
                                 : 'bg-gray-800 text-gray-500 hover:bg-gray-700'
                                 }`}
-                            onClick={() => updateHarm(index + 1)}
+                            onClick={() => handleHarmClick(index + 1)}
                         >
                             {index + 1}
                         </button>
@@ -113,7 +101,7 @@ export function HarmExperienceTracker({
                                 ? 'bg-green-700 text-white'
                                 : 'bg-gray-800 text-gray-500 hover:bg-gray-700'
                                 }`}
-                            onClick={() => updateExperience(index + 1)}
+                            onClick={() => handleExperienceClick(index + 1)}
                         >
                             {index + 1}
                         </button>

@@ -1,24 +1,17 @@
 # Monsterhearts 2 Character Sheet
 
-A digital character sheet for the Monsterhearts 2 tabletop roleplaying game. Built with React, TypeScript, and Vite.
+A simple, focused character sheet for [Monsterhearts 2](https://buriedwithoutceremony.com/monsterhearts) — the tabletop RPG about the messy lives of teenage monsters.
 
-## Features
+**[Use it here →](https://monsters.levcraig.com)**
 
-- Character name and stats management
-- Dice rolling system with stat application
-- Harm and experience tracking
-- Strings and conditions tracking
-- Automatic data persistence
-- Responsive design
+## What it does
 
-## Tech Stack
+Track your Hot/Cold/Dark/Volatile stats, roll dice, mark harm and experience, and keep notes on your strings and conditions. Everything auto-saves to your browser, so you can close the tab and come back later without losing your character.
 
-- React 18
-- TypeScript
-- Vite
-- Tailwind CSS
-- Local Storage for data persistence
+## Built with
+
+React, TypeScript, Vite, and Tailwind CSS. Data persists in localStorage.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License - see the LICENSE file for details.
