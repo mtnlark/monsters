@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
 interface HarmExperienceProps {
     initialHarm?: number;
@@ -116,4 +116,5 @@ export function HarmExperienceTracker({
             </div>
         </div>
     );
-} 
+}
+ 

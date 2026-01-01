@@ -76,7 +76,6 @@ function App() {
   }, [isDarkMode]);
 
   const handleRoll = (result: { dice: [number, number]; total: number; stat: number; statName: string }) => {
-    console.log('Roll result:', result);
     setFinalRoll({ total: result.total, statName: result.statName });
   };
 
@@ -141,12 +140,14 @@ function App() {
                   maxLength={50}
                   className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red text-lg text-center font-fontin"
                 />
-                <button
-                  onClick={() => setCharacterName('')}
-                  className="mt-2 px-4 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors text-sm float-right"
-                >
-                  Clear
-                </button>
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => setCharacterName('')}
+                    className="btn-clear"
+                  >
+                    Clear
+                  </button>
+                </div>
               </div>
             </div>
           </div>
