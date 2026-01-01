@@ -84,4 +84,5 @@ export function StatTracker({ onStatChange, initialStats }: StatTrackerProps) {
             </button>
         </div>
     );
-} 
+}
+ 

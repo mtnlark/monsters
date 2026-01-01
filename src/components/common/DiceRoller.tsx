@@ -5,7 +5,6 @@ interface DiceRollerProps {
     stats: Stats;
     onRoll: (result: RollResult) => void;
     onNewRoll?: () => void;
-    disabled?: boolean;
 }
 
 interface RollResult {
@@ -15,7 +14,7 @@ interface RollResult {
     statName: string;
 }
 
-export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceRollerProps) {
+export function DiceRoller({ stats, onRoll, onNewRoll }: DiceRollerProps) {
     const [lastRoll, setLastRoll] = useState<[number, number] | null>(null);
 
     const roll = useCallback(() => {
@@ -49,8 +48,7 @@ export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceR
             <div className="flex gap-4 items-center">
                 <button
                     onClick={roll}
-                    disabled={disabled}
-                    className="btn btn-primary font-fontin disabled:opacity-50 disabled:cursor-not-allowed px-8 py-3 text-lg transition-all hover:shadow-lg transform hover:-translate-y-1 active:translate-y-0"
+                    className="btn btn-primary font-fontin px-8 py-3 text-lg transition-all hover:shadow-lg transform hover:-translate-y-1 active:translate-y-0"
                 >
                     Roll 2d6
                 </button>
@@ -85,7 +83,6 @@ export function DiceRoller({ stats, onRoll, onNewRoll, disabled = false }: DiceR
                                 key={statName}
                                 onClick={() => applyStat(statName as keyof Stats)}
                                 className="btn btn-secondary font-fontin py-2 px-5 transition-all hover:shadow-md"
-                                disabled={disabled}
                             >
                                 With <span className="font-bold capitalize">{statName}</span>
                             </button>
@@ -108,4 +105,5 @@ function DieVisual({ value }: DieVisualProps) {
             <div className="absolute inset-0 bg-white/5 rounded-md"></div>
         </div>
     );
-} 
+}
+ 

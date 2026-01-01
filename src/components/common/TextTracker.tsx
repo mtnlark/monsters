@@ -43,13 +43,16 @@ export function TextTracker({ label, initialText = '', onTextChange }: TextTrack
                     style={{ height: `${TEXT_AREA_HEIGHT}px` }}
                     placeholder={`Enter ${label.toLowerCase()}...`}
                 />
-                <button
-                    onClick={handleClear}
-                    className="mt-2 px-4 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors text-sm float-right"
-                >
-                    Clear
-                </button>
+                <div className="flex justify-end">
+                    <button
+                        onClick={handleClear}
+                        className="btn-clear"
+                    >
+                        Clear
+                    </button>
+                </div>
             </div>
         </div>
     );
-} 
+}
+ 

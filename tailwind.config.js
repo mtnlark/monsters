@@ -14,6 +14,9 @@ export default {
             fontFamily: {
                 'yataghan': ['"Yataghan-Regular"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
                 'fontin': ['"Fontin-Regular"', 'Georgia', 'Garamond', '"Times New Roman"', 'Times', 'serif'],
+                'fontin-bold': ['"Fontin-Bold"', 'serif'],
+                'fontin-italic': ['"Fontin-Italic"', 'serif'],
+                'fontin-sc': ['"Fontin-SmallCaps"', 'serif'],
             },
         },
     },
