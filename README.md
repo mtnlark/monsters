@@ -14,4 +14,4 @@ React, TS, Vite, and Tailwind CSS. Data persists in localStorage.
 
 ## License
 
-MIT License; see the LICENSE file for details.
+MIT
