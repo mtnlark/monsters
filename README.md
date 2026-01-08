@@ -8,10 +8,6 @@ A simple, focused character sheet for [Monsterhearts 2](https://buriedwithoutcer
 
 Track your Hot/Cold/Dark/Volatile stats, roll dice, mark harm and experience, and keep notes on your strings and conditions. Everything autosaves to your browser, so you can close the tab and come back later without losing your character.
 
-## Built with
-
-React, TS, Vite, and Tailwind CSS. Data persists in localStorage.
-
 ## License
 
 MIT
