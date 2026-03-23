@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Stats } from '../../types/stats';
+import { DieVisual } from './DieVisual';
 
 interface DiceRollerProps {
     stats: Stats;
@@ -93,17 +94,3 @@ export function DiceRoller({ stats, onRoll, onNewRoll }: DiceRollerProps) {
         </div>
     );
 }
-
-interface DieVisualProps {
-    value: number;
-}
-
-function DieVisual({ value }: DieVisualProps) {
-    return (
-        <div className="w-12 h-12 bg-red-900 rounded-lg shadow-inner flex items-center justify-center relative border-2 border-red-950">
-            <span className="text-white text-2xl font-bold">{value}</span>
-            <div className="absolute inset-0 bg-white/5 rounded-md"></div>
-        </div>
-    );
-}
- 
