@@ -186,7 +186,7 @@ function App() {
                 >
                   Stats
                 </h2>
-                <StatTracker initialStats={stats} onStatChange={setStats} />
+                <StatTracker stats={stats} onStatChange={setStats} />
               </div>
             </div>
 
