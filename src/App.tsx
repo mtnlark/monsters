@@ -209,13 +209,13 @@ function App() {
             <div className="space-y-8">
               <TextTracker
                 label="Strings"
-                initialText={strings}
-                onTextChange={setStrings}
+                value={strings}
+                onChange={setStrings}
               />
               <TextTracker
                 label="Conditions"
-                initialText={conditions}
-                onTextChange={setConditions}
+                value={conditions}
+                onChange={setConditions}
               />
             </div>
           </div>
