@@ -198,8 +198,8 @@ function App() {
                 Status
               </h2>
               <HarmExperienceTracker
-                initialHarm={harm}
-                initialExperience={experience}
+                harm={harm}
+                experience={experience}
                 onHarmChange={setHarm}
                 onExperienceChange={setExperience}
               />
