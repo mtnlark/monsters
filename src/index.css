@@ -57,42 +57,58 @@
 /* Component Styles */
 @layer components {
 
+  /* Card container - used for all component wrappers */
+  .card {
+    @apply bg-white dark:bg-gray-800/50 rounded-card p-4 border border-gray-200 dark:border-gray-700/50 shadow-sm;
+  }
+
+  .card-elevated {
+    @apply bg-white dark:bg-gray-800/50 rounded-card p-4 border border-gray-200 dark:border-gray-700/50 shadow-md dark:shadow-lg dark:shadow-black/20;
+  }
+
   /* Button Base */
   .btn {
-    @apply px-4 py-2 rounded-md font-medium transition-colors;
+    @apply px-4 py-2 rounded-button font-medium transition-all duration-150 min-h-[44px] flex items-center justify-center;
+  }
+
+  .btn:active {
+    @apply scale-[0.98];
   }
 
   /* Primary Button */
   .btn-primary {
-    @apply bg-gradient-to-br from-blood-red to-red-900 text-white hover:from-blood-red hover:to-red-800 shadow-md border border-red-900/30;
+    @apply bg-gradient-to-br from-blood-red to-red-900 text-white hover:from-red-700 hover:to-red-800 shadow-md border border-red-900/30 hover:shadow-lg;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   }
 
   /* Secondary Button */
   .btn-secondary {
-    @apply bg-gradient-to-br from-charcoal to-gray-700 text-white hover:from-charcoal hover:to-gray-600 shadow-md border border-gray-600/30;
+    @apply bg-gradient-to-br from-charcoal to-gray-700 text-white hover:from-gray-600 hover:to-gray-600 shadow-md border border-gray-600/30 hover:shadow-lg;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   }
 
-  /* Clear Button */
-  .btn-clear {
-    @apply mt-2 px-4 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors text-sm;
+  /* Tertiary Button (ghost style) */
+  .btn-tertiary {
+    @apply text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700/50 rounded-button px-3 py-1.5 text-sm transition-colors duration-150;
+  }
+
+  /* Component label style */
+  .component-label {
+    @apply text-sm font-medium font-fontin text-gray-600 dark:text-gray-400 uppercase tracking-wider;
+  }
+
+  /* Value display style */
+  .value-display {
+    @apply text-2xl font-bold font-fontin;
+  }
+
+  /* Touch target helper - ensures minimum 44px */
+  .touch-target {
+    @apply min-w-[44px] min-h-[44px];
   }
 }
 
 /* Animations */
-@keyframes pulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -126,10 +142,6 @@
 
 .final-roll-result {
   animation: slideInBounce 0.5s ease-out;
-}
-
-.stat-box:hover {
-  animation: pulse 1s infinite;
 }
 
 /* Root Variables */
