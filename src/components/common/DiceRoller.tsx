@@ -4,8 +4,7 @@ import { DieVisual } from './DieVisual';
 
 interface DiceRollerProps {
     stats: Stats;
-    onRoll: (result: RollResult) => void;
-    onNewRoll?: () => void;
+    onRoll?: (result: RollResult) => void;
 }
 
 interface RollResult {
@@ -15,36 +14,33 @@ interface RollResult {
     statName: string;
 }
 
-export function DiceRoller({ stats, onRoll, onNewRoll }: DiceRollerProps) {
+export function DiceRoller({ stats, onRoll }: DiceRollerProps) {
     const [lastRoll, setLastRoll] = useState<[number, number] | null>(null);
     const [rollKey, setRollKey] = useState(0);
+    const [appliedResult, setAppliedResult] = useState<{ total: number; statName: string } | null>(null);
 
     const roll = useCallback(() => {
-        if (onNewRoll) {
-            onNewRoll();
-        }
-
         const dice = [
             Math.floor(Math.random() * 6) + 1,
             Math.floor(Math.random() * 6) + 1,
         ] as [number, number];
         setLastRoll(dice);
+        setAppliedResult(null);
         setRollKey(k => k + 1);
-    }, [onNewRoll]);
+    }, []);
 
     const applyStat = useCallback((statName: keyof Stats) => {
         if (!lastRoll) return;
         const stat = stats[statName];
         const total = lastRoll.reduce((a, b) => a + b) + stat;
-        onRoll({ dice: lastRoll, total, stat, statName });
+        setAppliedResult({ total, statName });
+        onRoll?.({ dice: lastRoll, total, stat, statName });
     }, [lastRoll, stats, onRoll]);
 
     const clearRoll = useCallback(() => {
         setLastRoll(null);
-        if (onNewRoll) {
-            onNewRoll();
-        }
-    }, [onNewRoll]);
+        setAppliedResult(null);
+    }, []);
 
     return (
         <div className="flex flex-col items-center gap-4">
@@ -67,20 +63,37 @@ export function DiceRoller({ stats, onRoll, onNewRoll }: DiceRollerProps) {
                         </span>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
-                        {(Object.keys(stats) as Array<keyof Stats>).map((statName) => (
-                            <button
-                                key={statName}
-                                onClick={() => applyStat(statName)}
-                                className="btn btn-secondary text-sm py-3"
-                            >
-                                <span className="capitalize">{statName}</span>
-                                <span className="ml-1 opacity-75">
-                                    {stats[statName] >= 0 ? '+' : ''}{stats[statName]}
-                                </span>
-                            </button>
-                        ))}
-                    </div>
+                    {appliedResult ? (
+                        <div className={`text-center px-6 py-4 rounded-card border-2 ${
+                            appliedResult.total >= 10
+                                ? 'bg-green-900/20 border-green-600 dark:border-green-500'
+                                : appliedResult.total <= 6
+                                    ? 'bg-red-900/20 border-blood-red'
+                                    : 'bg-gray-800/30 border-gray-600'
+                        }`}>
+                            <p className="text-sm font-fontin text-gray-600 dark:text-gray-300 mb-1">
+                                with <span className="font-bold uppercase">{appliedResult.statName}</span>
+                            </p>
+                            <div className="text-4xl font-bold text-gray-900 dark:text-white">
+                                {appliedResult.total}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-2 gap-2 w-full">
+                            {(Object.keys(stats) as Array<keyof Stats>).map((statName) => (
+                                <button
+                                    key={statName}
+                                    onClick={() => applyStat(statName)}
+                                    className="btn btn-secondary text-sm py-3"
+                                >
+                                    <span className="capitalize">{statName}</span>
+                                    <span className="ml-1 opacity-75">
+                                        {stats[statName] >= 0 ? '+' : ''}{stats[statName]}
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
+                    )}
 
                     <button
                         onClick={clearRoll}

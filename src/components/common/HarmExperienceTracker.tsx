@@ -59,7 +59,7 @@ export function HarmExperienceTracker({
   const clearExperience = () => onExperienceChange(0);
 
   return (
-    <div className="flex flex-col sm:flex-row justify-center gap-8">
+    <div className="flex flex-col justify-center gap-6">
       {/* Harm Tracker */}
       <div className="flex flex-col items-center">
         <label className="component-label mb-3">Harm</label>

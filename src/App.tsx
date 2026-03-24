@@ -17,7 +17,6 @@ function App() {
     resetCharacter,
   } = useCharacter();
 
-  const [finalRoll, setFinalRoll] = useState<{ total: number; statName: string } | null>(null);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     const saved = localStorage.getItem('darkMode');
     return saved !== null ? saved === 'true' : true;
@@ -31,14 +30,6 @@ function App() {
     }
     localStorage.setItem('darkMode', String(isDarkMode));
   }, [isDarkMode]);
-
-  const handleRoll = (result: { dice: [number, number]; total: number; stat: number; statName: string }) => {
-    setFinalRoll({ total: result.total, statName: result.statName });
-  };
-
-  const clearRoll = () => {
-    setFinalRoll(null);
-  };
 
   const handleResetCharacter = () => {
     if (window.confirm('Are you sure you want to reset your character data?')) {
@@ -101,27 +92,8 @@ function App() {
           <div className="md:col-span-1 lg:col-span-1 order-1">
             <div className="card-elevated">
               <h2 className="component-label text-center mb-4">Dice Roller</h2>
-              <DiceRoller stats={character.stats} onRoll={handleRoll} onNewRoll={clearRoll} />
+              <DiceRoller stats={character.stats} />
             </div>
-
-            {finalRoll && (
-              <div className="mt-4 text-center final-roll-result">
-                <div className={`inline-block px-6 py-4 rounded-card border-2 shadow-xl ${
-                  finalRoll.total >= 10
-                    ? 'bg-green-900/20 border-green-600 dark:border-green-500'
-                    : finalRoll.total <= 6
-                      ? 'bg-red-900/20 border-blood-red'
-                      : 'bg-gradient-to-br from-blood-red/20 to-red-900/20 border-blood-red'
-                }`}>
-                  <p className="text-lg font-fontin text-gray-700 dark:text-gray-200 mb-1">
-                    with <span className="font-bold uppercase">{finalRoll.statName}</span>
-                  </p>
-                  <div className="text-5xl font-bold text-gray-900 dark:text-white">
-                    {finalRoll.total}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Stats - second on mobile */}

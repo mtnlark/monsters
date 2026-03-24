@@ -37,7 +37,7 @@ export function StatTracker({ stats, onStatChange }: StatTrackerProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         {(Object.entries(stats) as [keyof Stats, number][]).map(([stat, value]) => (
           <div
             key={stat}

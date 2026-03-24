@@ -7,13 +7,13 @@ describe('DiceRoller', () => {
   const defaultStats = { hot: 1, cold: -1, dark: 2, volatile: 0 };
 
   it('renders roll button', () => {
-    render(<DiceRoller stats={defaultStats} onRoll={() => {}} />);
+    render(<DiceRoller stats={defaultStats} />);
     expect(screen.getByRole('button', { name: /roll 2d6/i })).toBeInTheDocument();
   });
 
   it('shows dice results after rolling', async () => {
     const user = userEvent.setup();
-    render(<DiceRoller stats={defaultStats} onRoll={() => {}} />);
+    render(<DiceRoller stats={defaultStats} />);
 
     await user.click(screen.getByRole('button', { name: /roll 2d6/i }));
 
@@ -46,10 +46,30 @@ describe('DiceRoller', () => {
     mockRandom.mockRestore();
   });
 
+  it('shows result inline after applying stat', async () => {
+    const user = userEvent.setup();
+
+    // Mock Math.random to return predictable dice
+    const mockRandom = vi.spyOn(Math, 'random');
+    mockRandom.mockReturnValueOnce(0.5); // die 1: 4
+    mockRandom.mockReturnValueOnce(0.3); // die 2: 2
+
+    render(<DiceRoller stats={defaultStats} />);
+
+    await user.click(screen.getByRole('button', { name: /roll 2d6/i }));
+    await user.click(screen.getByRole('button', { name: /hot/i }));
+
+    // Result should show inline, stat buttons should be hidden
+    expect(screen.getByText('7')).toBeInTheDocument();
+    expect(screen.getByText(/with/i)).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /cold/i })).not.toBeInTheDocument();
+
+    mockRandom.mockRestore();
+  });
+
   it('clears roll when clear button clicked', async () => {
     const user = userEvent.setup();
-    const onNewRoll = vi.fn();
-    render(<DiceRoller stats={defaultStats} onRoll={() => {}} onNewRoll={onNewRoll} />);
+    render(<DiceRoller stats={defaultStats} />);
 
     await user.click(screen.getByRole('button', { name: /roll 2d6/i }));
     expect(screen.getByRole('button', { name: /hot/i })).toBeInTheDocument();
