@@ -48,17 +48,17 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-100">
-      <header className="bg-gradient-to-r from-blood-red to-red-900 text-white p-6 shadow-md">
+      <header className="bg-gradient-to-r from-blood-red to-red-900 text-white p-4 sm:p-6 shadow-md">
         <div className="container mx-auto max-w-6xl flex items-center justify-between">
           <h1
-            className="text-3xl font-yataghan tracking-wide"
+            className="text-2xl sm:text-3xl font-yataghan tracking-wide"
             style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
           >
-            Monsterhearts 2 Player Sheet
+            Monsterhearts 2
           </h1>
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+            className="p-2 rounded-button bg-white/10 hover:bg-white/20 transition-colors duration-150 touch-target flex items-center justify-center"
             aria-label="Toggle dark mode"
           >
             {isDarkMode ? (
@@ -73,70 +73,69 @@ function App() {
           </button>
         </div>
       </header>
-      <main className="container mx-auto p-6 max-w-6xl">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border border-gray-200 dark:border-gray-700">
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold font-fontin mb-4 text-center tracking-wide">
-              Character
-            </h2>
-            <div className="flex justify-center">
-              <div className="w-full max-w-md">
-                <input
-                  type="text"
-                  value={character.name}
-                  onChange={(e) => updateName(e.target.value)}
-                  placeholder="Enter character name..."
-                  maxLength={50}
-                  className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blood-red text-lg text-center font-fontin"
-                  aria-label="Character name"
-                />
-                <button
-                  onClick={() => updateName('')}
-                  className="mt-2 px-4 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors text-sm float-right"
-                >
-                  Clear
-                </button>
+
+      {/* Sticky character name on mobile */}
+      <div className="sticky top-0 z-10 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 sm:relative sm:bg-transparent sm:dark:bg-transparent sm:backdrop-blur-none sm:border-none">
+        <div className="container mx-auto max-w-6xl p-4 sm:p-6 sm:pb-0">
+          <div className="flex justify-center">
+            <div className="w-full max-w-md">
+              <input
+                type="text"
+                value={character.name}
+                onChange={(e) => updateName(e.target.value)}
+                placeholder="Character name..."
+                maxLength={50}
+                className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-button text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blood-red text-lg text-center font-fontin"
+                aria-label="Character name"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <main className="container mx-auto p-4 sm:p-6 max-w-6xl">
+        {/* Main content grid - responsive */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Dice Roller - always first on mobile */}
+          <div className="md:col-span-1 lg:col-span-1 order-1">
+            <div className="card-elevated">
+              <h2 className="component-label text-center mb-4">Dice Roller</h2>
+              <DiceRoller stats={character.stats} onRoll={handleRoll} onNewRoll={clearRoll} />
+            </div>
+
+            {finalRoll && (
+              <div className="mt-4 text-center final-roll-result">
+                <div className={`inline-block px-6 py-4 rounded-card border-2 shadow-xl ${
+                  finalRoll.total >= 10
+                    ? 'bg-green-900/20 border-green-600 dark:border-green-500'
+                    : finalRoll.total <= 6
+                      ? 'bg-red-900/20 border-blood-red'
+                      : 'bg-gradient-to-br from-blood-red/20 to-red-900/20 border-blood-red'
+                }`}>
+                  <p className="text-lg font-fontin text-gray-700 dark:text-gray-200 mb-1">
+                    with <span className="font-bold uppercase">{finalRoll.statName}</span>
+                  </p>
+                  <div className="text-5xl font-bold text-gray-900 dark:text-white">
+                    {finalRoll.total}
+                  </div>
+                </div>
               </div>
+            )}
+          </div>
+
+          {/* Stats - second on mobile */}
+          <div className="md:col-span-1 lg:col-span-1 order-2">
+            <div className="card">
+              <h2 className="component-label text-center mb-4">Stats</h2>
+              <StatTracker stats={character.stats} onStatChange={updateStats} />
             </div>
           </div>
 
-          {/* Main content grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left column: Dice Roller and Stats */}
-            <div>
-              <div className="mb-8">
-                <h2 className="text-2xl font-semibold font-fontin mb-6 text-center tracking-wide">
-                  Dice Roller
-                </h2>
-                <DiceRoller stats={character.stats} onRoll={handleRoll} onNewRoll={clearRoll} />
-              </div>
-
-              {finalRoll && (
-                <div className="mb-8 text-center final-roll-result">
-                  <div className="inline-block px-8 py-6 bg-gradient-to-br from-blood-red/20 to-red-900/20 border-2 border-blood-red rounded-xl shadow-2xl">
-                    <p className="text-2xl font-fontin text-gray-700 dark:text-gray-200 mb-2">
-                      Result with <span className="text-white font-bold bg-blood-red px-3 py-1 rounded-md shadow-md">{finalRoll.statName.toUpperCase()}</span>
-                    </p>
-                    <div className="text-6xl font-bold text-gray-900 dark:text-white drop-shadow-lg">
-                      {finalRoll.total}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div>
-                <h2 className="text-2xl font-semibold font-fontin mb-6 text-center tracking-wide">
-                  Stats
-                </h2>
-                <StatTracker stats={character.stats} onStatChange={updateStats} />
-              </div>
-            </div>
-
-            {/* Middle column: Harm and Experience */}
-            <div>
-              <h2 className="text-2xl font-semibold font-fontin mb-6 text-center tracking-wide">
-                Status
-              </h2>
+          {/* Harm & Experience - third on mobile */}
+          <div className="md:col-span-2 lg:col-span-1 order-3 lg:order-3">
+            <div className="card">
+              <h2 className="component-label text-center mb-4">Status</h2>
               <HarmExperienceTracker
                 harm={character.harm}
                 experience={character.experience}
@@ -144,30 +143,32 @@ function App() {
                 onExperienceChange={updateExperience}
               />
             </div>
+          </div>
 
-            {/* Right column: Strings and Conditions */}
-            <div className="space-y-8">
-              <TextTracker
-                label="Strings"
-                value={character.strings}
-                onChange={updateStrings}
-              />
-              <TextTracker
-                label="Conditions"
-                value={character.conditions}
-                onChange={updateConditions}
-              />
-            </div>
+          {/* Strings - fourth on mobile */}
+          <div className="md:col-span-1 lg:col-span-1 order-4 lg:order-4">
+            <TextTracker
+              label="Strings"
+              value={character.strings}
+              onChange={updateStrings}
+            />
+          </div>
+
+          {/* Conditions - fifth on mobile */}
+          <div className="md:col-span-1 lg:col-span-2 order-5 lg:order-5">
+            <TextTracker
+              label="Conditions"
+              value={character.conditions}
+              onChange={updateConditions}
+            />
           </div>
         </div>
       </main>
-      <footer className="text-center p-4 text-sm text-gray-600 dark:text-gray-400 mt-8">
-        <p className="font-fontin">
-          A character sheet for Monsterhearts 2
-        </p>
+
+      <footer className="text-center p-4 text-sm text-gray-500 dark:text-gray-500">
         <button
           onClick={handleResetCharacter}
-          className="mt-2 text-xs text-gray-600 dark:text-gray-500 hover:text-blood-red transition-colors"
+          className="btn-tertiary"
         >
           Reset Character
         </button>
