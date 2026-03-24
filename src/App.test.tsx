@@ -11,12 +11,13 @@ describe('App', () => {
 
   it('renders the header', () => {
     render(<App />);
-    expect(screen.getByText('Monsterhearts 2 Player Sheet')).toBeInTheDocument();
+    expect(screen.getByText('Monsterhearts 2')).toBeInTheDocument();
   });
 
   it('renders all main sections', () => {
     render(<App />);
-    expect(screen.getByText('Character')).toBeInTheDocument();
+    // Character name is now in sticky header, accessed via aria-label
+    expect(screen.getByLabelText('Character name')).toBeInTheDocument();
     expect(screen.getByText('Dice Roller')).toBeInTheDocument();
     expect(screen.getByText('Stats')).toBeInTheDocument();
     expect(screen.getByText('Status')).toBeInTheDocument();

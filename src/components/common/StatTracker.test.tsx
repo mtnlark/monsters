@@ -10,9 +10,11 @@ describe('StatTracker', () => {
     const stats = { hot: 2, cold: -1, dark: 0, volatile: 1 };
     render(<StatTracker stats={stats} onStatChange={() => {}} />);
 
-    expect(screen.getByDisplayValue('2')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('-1')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('1')).toBeInTheDocument();
+    // Values display with +/- formatting in spans
+    expect(screen.getByLabelText('hot stat value')).toHaveTextContent('+2');
+    expect(screen.getByLabelText('cold stat value')).toHaveTextContent('-1');
+    expect(screen.getByLabelText('dark stat value')).toHaveTextContent('+0');
+    expect(screen.getByLabelText('volatile stat value')).toHaveTextContent('+1');
   });
 
   it('calls onStatChange when increment button is clicked', async () => {
@@ -26,27 +28,19 @@ describe('StatTracker', () => {
     expect(onStatChange).toHaveBeenCalledWith({ ...defaultStats, hot: 1 });
   });
 
-  it('respects max stat value of 3', async () => {
-    const user = userEvent.setup();
-    const onStatChange = vi.fn();
+  it('disables increment button at max stat value of 3', () => {
     const stats = { hot: 3, cold: 0, dark: 0, volatile: 0 };
-    render(<StatTracker stats={stats} onStatChange={onStatChange} />);
+    render(<StatTracker stats={stats} onStatChange={() => {}} />);
 
-    const incrementButtons = screen.getAllByLabelText(/increase/i);
-    await user.click(incrementButtons[0]);
-
-    expect(onStatChange).toHaveBeenCalledWith(stats);
+    const incrementHotButton = screen.getByLabelText('Increase hot');
+    expect(incrementHotButton).toBeDisabled();
   });
 
-  it('respects min stat value of -3', async () => {
-    const user = userEvent.setup();
-    const onStatChange = vi.fn();
+  it('disables decrement button at min stat value of -3', () => {
     const stats = { hot: -3, cold: 0, dark: 0, volatile: 0 };
-    render(<StatTracker stats={stats} onStatChange={onStatChange} />);
+    render(<StatTracker stats={stats} onStatChange={() => {}} />);
 
-    const decrementButtons = screen.getAllByLabelText(/decrease/i);
-    await user.click(decrementButtons[0]);
-
-    expect(onStatChange).toHaveBeenCalledWith(stats);
+    const decrementHotButton = screen.getByLabelText('Decrease hot');
+    expect(decrementHotButton).toBeDisabled();
   });
 });
