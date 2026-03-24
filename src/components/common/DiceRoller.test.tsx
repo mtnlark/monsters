@@ -17,9 +17,9 @@ describe('DiceRoller', () => {
 
     await user.click(screen.getByRole('button', { name: /roll 2d6/i }));
 
-    // Should show stat buttons after rolling
-    expect(screen.getByRole('button', { name: /with hot/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /with cold/i })).toBeInTheDocument();
+    // Should show stat buttons after rolling (new format: "Hot +1")
+    expect(screen.getByRole('button', { name: /hot/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /cold/i })).toBeInTheDocument();
   });
 
   it('calls onRoll with correct total when stat applied', async () => {
@@ -34,7 +34,7 @@ describe('DiceRoller', () => {
     render(<DiceRoller stats={defaultStats} onRoll={onRoll} />);
 
     await user.click(screen.getByRole('button', { name: /roll 2d6/i }));
-    await user.click(screen.getByRole('button', { name: /with hot/i }));
+    await user.click(screen.getByRole('button', { name: /hot/i }));
 
     expect(onRoll).toHaveBeenCalledWith({
       dice: [4, 2],
@@ -52,9 +52,9 @@ describe('DiceRoller', () => {
     render(<DiceRoller stats={defaultStats} onRoll={() => {}} onNewRoll={onNewRoll} />);
 
     await user.click(screen.getByRole('button', { name: /roll 2d6/i }));
-    expect(screen.getByRole('button', { name: /with hot/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /hot/i })).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /clear/i }));
-    expect(screen.queryByRole('button', { name: /with hot/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /hot/i })).not.toBeInTheDocument();
   });
 });

@@ -17,6 +17,7 @@ interface RollResult {
 
 export function DiceRoller({ stats, onRoll, onNewRoll }: DiceRollerProps) {
     const [lastRoll, setLastRoll] = useState<[number, number] | null>(null);
+    const [rollKey, setRollKey] = useState(0);
 
     const roll = useCallback(() => {
         if (onNewRoll) {
@@ -28,6 +29,7 @@ export function DiceRoller({ stats, onRoll, onNewRoll }: DiceRollerProps) {
             Math.floor(Math.random() * 6) + 1,
         ] as [number, number];
         setLastRoll(dice);
+        setRollKey(k => k + 1);
     }, [onNewRoll]);
 
     const applyStat = useCallback((statName: keyof Stats) => {
@@ -45,50 +47,47 @@ export function DiceRoller({ stats, onRoll, onNewRoll }: DiceRollerProps) {
     }, [onNewRoll]);
 
     return (
-        <div className="flex flex-col items-center gap-6">
-            <div className="flex gap-4 items-center">
-                <button
-                    onClick={roll}
-                    className="btn btn-primary font-fontin px-8 py-3 text-lg transition-all hover:shadow-lg transform hover:-translate-y-1 active:translate-y-0"
-                >
-                    Roll 2d6
-                </button>
-                {lastRoll && (
-                    <button
-                        onClick={clearRoll}
-                        className="px-4 py-1 bg-gray-800 text-gray-300 rounded hover:bg-gray-700 transition-colors text-sm"
-                    >
-                        Clear
-                    </button>
-                )}
-            </div>
+        <div className="flex flex-col items-center gap-4">
+            <button
+                onClick={roll}
+                className="btn btn-primary w-full sm:w-auto px-8 py-3 text-lg font-fontin"
+            >
+                Roll 2d6
+            </button>
 
             {lastRoll && (
                 <>
-                    <div
-                        className="text-xl bg-gray-700 px-6 py-3 rounded-lg shadow-inner dice-result font-fontin"
-                    >
-                        <div className="flex items-center justify-center gap-4">
-                            <div className="flex items-center">
-                                <DieVisual value={lastRoll[0]} />
-                                <span className="mx-2 text-gray-300">+</span>
-                                <DieVisual value={lastRoll[1]} />
-                                <span className="mx-2 text-gray-300">=</span>
-                                <span className="font-bold text-white text-2xl">{lastRoll.reduce((a, b) => a + b)}</span>
-                            </div>
-                        </div>
+                    <div className="flex items-center gap-3 py-2" key={rollKey}>
+                        <DieVisual value={lastRoll[0]} animate />
+                        <span className="text-2xl text-gray-400 dark:text-gray-500">+</span>
+                        <DieVisual value={lastRoll[1]} animate />
+                        <span className="text-2xl text-gray-400 dark:text-gray-500">=</span>
+                        <span className="text-3xl font-bold text-gray-900 dark:text-white min-w-[2ch] text-center">
+                            {lastRoll.reduce((a, b) => a + b)}
+                        </span>
                     </div>
-                    <div className="flex flex-wrap gap-3 justify-center mt-2">
-                        {Object.keys(stats).map((statName) => (
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
+                        {(Object.keys(stats) as Array<keyof Stats>).map((statName) => (
                             <button
                                 key={statName}
-                                onClick={() => applyStat(statName as keyof Stats)}
-                                className="btn btn-secondary font-fontin py-2 px-5 transition-all hover:shadow-md"
+                                onClick={() => applyStat(statName)}
+                                className="btn btn-secondary text-sm py-3"
                             >
-                                With <span className="font-bold capitalize">{statName}</span>
+                                <span className="capitalize">{statName}</span>
+                                <span className="ml-1 opacity-75">
+                                    {stats[statName] >= 0 ? '+' : ''}{stats[statName]}
+                                </span>
                             </button>
                         ))}
                     </div>
+
+                    <button
+                        onClick={clearRoll}
+                        className="btn-tertiary"
+                    >
+                        Clear
+                    </button>
                 </>
             )}
         </div>
